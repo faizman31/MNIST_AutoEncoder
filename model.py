@@ -71,7 +71,6 @@ class AutoEncoder(nn.Module):
                 )]
             last_hidden_size=hidden_size
         
-
         self.encoder = nn.Sequential(
             *encoder_blocks,
             nn.Linear(last_hidden_size,btl_size),
@@ -83,9 +82,11 @@ class AutoEncoder(nn.Module):
         )
 
     def forward(self,x):
-
+        # |x| = (batch_size,input_size)
+        # |z| = (batch_size,btl_size)
         z = self.encoder(x)
 
+        # |y| = (batch_size,input_size)
         y = self.decoder(y)
 
         return y

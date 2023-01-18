@@ -43,7 +43,21 @@ class Trainer():
         
         return total_loss / len(x)
 
+    def _validate(self,x,y):
+        self.model.eval()
 
+        with torch.no_grad():
+            indices = torch.randperm(x.shape[0],device=x.device)
+
+            x=torch.index_select(x,dim=0,index=indices).split(self.config.batch_size,dim=0)
+            y=torch.index_select(y,dim=0,index=indices).split(self.config.batch_size,dim=0)
+
+            total_loss = 0
+
+            for i,(x_i,y_i) in enumerate(zip(x,y)):
+                y_hat_i = self.model(x_i)
+                loss = self.crit(y_hat_i,y_i.squeeze())
+                
 
             
 

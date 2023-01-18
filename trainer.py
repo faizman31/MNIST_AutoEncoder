@@ -56,8 +56,15 @@ class Trainer():
 
             for i,(x_i,y_i) in enumerate(zip(x,y)):
                 y_hat_i = self.model(x_i)
-                loss = self.crit(y_hat_i,y_i.squeeze())
+                loss_i = self.crit(y_hat_i,y_i.squeeze())
                 
+                if self.config.verbose >=2:
+                    print('Valid Iteration(%d/%d) : loss=%.4e'%(i+1,len(x),loss_i))
+
+                total_loss += float(loss_i)
+
+            return total_loss / len(x)
+            
 
             
 

@@ -3,7 +3,8 @@ import numpy as np
 
 def load_mnist(is_train,flatten=True):
     from torchvision import datasets,transforms
-    dataset = datasets.mnist('../data',
+    dataset = datasets.mnist(
+        './data',
     train=is_train,
     download=True,
     transform=transforms.Compose([transforms.ToTensor()])

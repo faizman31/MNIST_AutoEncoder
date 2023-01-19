@@ -11,7 +11,7 @@ def load_mnist(is_train,flatten=True):
     )
 
     x = dataset.data.float() / 255. # min/max Scaling
-    y = dataset.target
+    y = dataset.targets
 
     if flatten:
         x=x.reshape(x.shape[0],-1)

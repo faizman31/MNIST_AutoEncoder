@@ -27,8 +27,13 @@ def define_argparse():
     p.add_argument('--dropout_p',type=float,default=.3)
     p.add_argument('--verbose',type=int,default=1)
 
+
     config=p.parse_args()
 
     return config
 
+def main(config):
+    x,y = load_mnist()
     
+    train_cnt = int(x.shape[0] * config.train_ratio)
+    valid_cnt = x.shape[0] - train_cnt

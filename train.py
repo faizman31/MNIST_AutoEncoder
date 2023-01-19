@@ -35,7 +35,7 @@ def define_argparser():
 def main(config):
     device = torch.device('cpu') if config.gpu_id <0 else torch.device('cuda:%d'%(config.gpu_id))
 
-    x,y = load_mnist()
+    x,y = load_mnist(is_train=True,flatten=True)
     x,y = split_data(x.to(device),y.to(device))
     
     print('Train : ',x[0].shape,y[0].shape)

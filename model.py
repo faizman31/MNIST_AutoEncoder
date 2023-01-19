@@ -52,7 +52,7 @@ class AutoEncoder(nn.Module):
         last_hidden_size = input_size
         encoder_blocks=[]
 
-        for hidden_size in hidden_sizes:
+        for hidden_size in hidden_sizes[1:]:
             encoder_blocks+=[Block(
                             last_hidden_size,
                             hidden_size,
@@ -60,10 +60,15 @@ class AutoEncoder(nn.Module):
                             )]
             last_hidden_size = hidden_size
 
+        self.encoder = nn.Sequential(
+            *encoder_blocks,
+            nn.Linear(last_hidden_size,btl_size),
+        )
+
         decoder_blocks=[]
         last_hidden_size=btl_size
 
-        for hidden_size in hidden_sizes.reverse():
+        for hidden_size in hidden_sizes[1::-1]:
             decoder_blocks+=[Block(
                 last_hidden_size,
                 hidden_size,
@@ -71,10 +76,6 @@ class AutoEncoder(nn.Module):
                 )]
             last_hidden_size=hidden_size
         
-        self.encoder = nn.Sequential(
-            *encoder_blocks,
-            nn.Linear(last_hidden_size,btl_size),
-        )
         self.decoder = nn.Sequential(
             *decoder_blocks,
             nn.Linear(last_hidden_size,input_size),
@@ -87,7 +88,7 @@ class AutoEncoder(nn.Module):
         z = self.encoder(x)
 
         # |y| = (batch_size,input_size)
-        y = self.decoder(y)
+        y = self.decoder(z)
 
         return y
 

@@ -11,7 +11,7 @@ from trainer import Trainer
 from utils import *
 
 
-def define_argparse():
+def define_argparser():
     p = argparse.ArgumentParser()
 
     p.add_argument('--model_fn',required=True)
@@ -21,9 +21,8 @@ def define_argparse():
     p.add_argument('--batch_size',type=int,default=256)
     p.add_argument('--train_ratio',type=float,default=.8)
     
-    p.add_argument('--encoder_layers',type=int,default=5)
-    p.add_arguemnt('--decoder_layers',type=int,default=5)
-
+    p.add_argument('--n_layers',type=int,default=5)
+    p.add_argument('--btl_size',type=int,default=10)
     p.add_argument('--use_dropout',action='store_true')
     p.add_argument('--dropout_p',type=float,default=.3)
 
@@ -50,5 +49,34 @@ def main(config):
         input_size= input_size,
         output_size=output_size,
         hidden_sizes = get_encoder_hidden_size(config.n_layers),
+        btl_size = config.btl_size,
+        use_batch_norm = not config.use_dropout,
+    ).to(device)
 
-    )
+    optimizer = optim.Adam(model.parameters())
+    crit = nn.NLLLoss()
+
+    if config.verbose >=1:
+        print(model)
+        print(optimizer)
+        print(crit)
+
+    trainer = Trainer(model,optimizer,crit)
+
+    trainer.train(
+        train_data=(x[0],x[0]),
+        valid_data=(x[1],x[1]),
+        config=config)
+
+    torch.save({
+        'model' : trainer.model.state_dict(),
+        'opt' : optimizer.state_dict(),
+        'config':config
+    },config.model_fn)
+
+
+if __name__ == '__main__':
+    config = define_argparser()
+    main(config)
+
+

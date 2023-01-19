@@ -8,7 +8,7 @@ import argparse
 
 from model import AutoEncoder
 from trainer import Trainer
-from utils import load_mnist , get_encoder_hidden_size
+from utils import *
 
 
 def define_argparse():
@@ -23,17 +23,32 @@ def define_argparse():
     
     p.add_argument('--encoder_layers',type=int,default=5)
     p.add_arguemnt('--decoder_layers',type=int,default=5)
+
     p.add_argument('--use_dropout',action='store_true')
     p.add_argument('--dropout_p',type=float,default=.3)
-    p.add_argument('--verbose',type=int,default=1)
 
+    p.add_argument('--verbose',type=int,default=1)
 
     config=p.parse_args()
 
     return config
 
 def main(config):
+    device = torch.device('cpu') if config.gpu_id <0 else torch.device('cuda:%d'%(config.gpu_id))
+
     x,y = load_mnist()
+    x,y = split_data(x.to(device),y.to(device))
     
-    train_cnt = int(x.shape[0] * config.train_ratio)
-    valid_cnt = x.shape[0] - train_cnt
+    print('Train : ',x[0].shape,y[0].shape)
+    print('Valid : ',x[1].shape,y[1].shape)
+
+    # AutoEncoder -> input_size == output_size
+    input_size = int(x[0].shape[-1])
+    output_size = int(x[0].shape[-1])
+
+    model = AutoEncoder(
+        input_size= input_size,
+        output_size=output_size,
+        hidden_sizes = get_encoder_hidden_size(config.n_layers),
+
+    )

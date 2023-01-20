@@ -54,9 +54,11 @@ def main(config):
     ).to(device)
 
     optimizer = optim.Adam(model.parameters())
-    crit = nn.NLLLoss()
+    crit = nn.MSELoss()
 
     if config.verbose >=1:
+        print('Train_data Shape : ',x[0].shape)
+        print('Valid_data Shape :',x[1].shape)
         print(model)
         print(optimizer)
         print(crit)

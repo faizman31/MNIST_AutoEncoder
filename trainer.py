@@ -33,7 +33,6 @@ class Trainer():
 
         for i,(x_i,y_i) in enumerate(zip(x,y)):
             y_hat_i = self.model(x_i)
-            print(y_hat_i.shape,y_i.shape)
             loss_i= self.crit(y_hat_i,y_i)
 
             self.optimizer.zero_grad()

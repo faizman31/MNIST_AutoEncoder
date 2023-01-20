@@ -79,7 +79,6 @@ class AutoEncoder(nn.Module):
         self.decoder = nn.Sequential(
             *decoder_blocks,
             nn.Linear(last_hidden_size,input_size),
-            nn.LogSoftmax(dim=-1)
         )
 
     def forward(self,x):

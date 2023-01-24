@@ -175,5 +175,4 @@ Configuration
 - n_layers : 10
 - btl_size : 2
 - verbose : 1
-- 
 평가에 관련된 자세한 내용은 <a href='https://github.com/faizman31/MNIST_autoencoder/blob/main/predict.ipynb'>Predict.ipynb</a> 에서 보실수 있습니다.

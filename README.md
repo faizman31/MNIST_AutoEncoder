@@ -14,3 +14,8 @@ and then decode it back such that the reconstructed input is similar as possible
 ![IMG_9AB4D862AC3F-1](https://user-images.githubusercontent.com/76929568/214225284-53cf9750-4b19-41be-822e-20eb47248a79.jpeg)
 - Encoder : 입력(input,x)의 정보를 최대한 보존하도록 손실압축을 수행
 - Decoder : 중간 결과물(z)의 정보를 입력(input,x)과 같아지도록 압축 해제(복원)을 수행
+- Bottleneck : 중간 결과물(z) 구간으로 입력(x)에 비해 작은 차원으로 구성된다. (이 과정에서 정보의 선택과 압축이 발생한다.-> 차원에 따라 압축정도가 결정)
+> AutoEncoder는 압축과 해제를 반복하며 중요한 특징 추출을 자동으로 학습한다.
+---
+
+> Bottleneck의 중간 결과물(z)는 입력(input,x)의 Feature Vector라고 볼 수 있고 입력(input,x)보다 차원수가 작기 때문에 입력에 비해 Dense Vector라고 볼 수 있다.

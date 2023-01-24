@@ -20,3 +20,17 @@ and then decode it back such that the reconstructed input is similar as possible
 ---
 
 > Bottleneck의 중간 결과물(z)는 입력(input,x)의 Feature Vector라고 볼 수 있고 입력(input,x)보다 차원수가 작기 때문에 입력에 비해 Dense Vector라고 볼 수 있다.
+
+
+---
+## Dataset - MNIST
+- MNIST 숫자 손글씨 데이터 (0 ~ 9 Class , 28x28 이미지 데이터)
+- MNIST 데이터 구성
+  - 학습 데이터 : 60,000개
+  - 테스트 데이터 : 10,000개
+
+## Train/Valid Split
+- Train : Valid = 8 : 2
+- |Train| = (48,000 , 784)
+- |Valid| = (12,000 , 784)
+

@@ -1,6 +1,6 @@
 # MNIST_autoencoder
 
-본 Repository 는 패스트캠퍼스의 딥러닝 초급 강좌와 AutoEncoder Paper를 참고로 제작되었습니다.
+본 Repository 는 패스트캠퍼스의 딥러닝 초급 강좌와 AutoEncoder Paper를 참고로 제작되었습니다.  
 Ref. <a href='https://arxiv.org/abs/2003.05991'>Autoencoder Paper</a>
 ---
 ## AutoEncoder란?

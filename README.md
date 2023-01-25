@@ -36,6 +36,16 @@ and then decode it back such that the reconstructed input is similar as possible
 
 ---
 ## Configuration
+- model_fn : 모델 파일의 경로 ex) --model_fn ./model.pth
+- gpu_id : 사용할 GPU (GPU가 없는 경우 CPU로 Default)
+- n_epochs : epoch 횟수 (Default : 10)
+- batch_size : 미니배치 크기 (Default : 256)
+- train_ratio : 학습 데이터의 비율 (Default : .8 -> 80%)
+- n_layers : 계층의 수 (인코더와 디코더가 같은 layer를 가짐 , Default = 5)
+- btl_size : Bottleneck 크기 (Default : 5)
+  - bottleneck은 입력(input,x)의 Feature Vector로 입력을 손실압축한 결과이다.
+- use_dropout : dropout Regularization 사용 여부 (사용할 경우 --use_dropout 입력 사용하지 않을 경우 입력하지 않는다.) 
+- verbose : Logging 정도 (Default : 1 , 0<=int(verbose)<=2)
 ```
 def define_argparser():
     p = argparse.ArgumentParser()

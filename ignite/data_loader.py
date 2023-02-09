@@ -52,20 +52,20 @@ def get_loaders(config):
     train_y,valid_y = torch.index_select(y,dim=0,index=indices).split([train_cnt,valid_cnt],dim=0)
 
     train_loader = DataLoader(
-        dataset = MNISTDataset(train_x,train_y,flatten=True),
+        dataset = MNISTDataset(train_x,train_x,flatten=True),
         batch_size = config.batch_size,
         shuffle = True
     )
 
     valid_loader = DataLoader(
-        dataset = MNISTDataset(valid_x,valid_y,flatten=True),
+        dataset = MNISTDataset(valid_x,valid_x,flatten=True),
         batch_size = config.batch_size,
         shuffle=True
     )
 
     test_x,test_y = load_mnist(is_train=False,flatten=False)
     test_loader = DataLoader(
-        dataset = MNISTDataset(test_x,test_y,flatten=True)
+        dataset = MNISTDataset(test_x,test_x,flatten=True)
         batch_size = config.batch_size,
         shuffle = False
     )
